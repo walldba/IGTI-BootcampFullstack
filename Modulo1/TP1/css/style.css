@@ -1,0 +1,26 @@
+#label-red{
+    color: red;
+}
+
+#label-green{
+    color: green;
+}
+
+#label-blue{
+    color: blue;
+}
+
+.input-text{
+    width: 35px;
+}
+.input-text:hover{
+    border-color: yellow;
+}
+
+.squareColor{
+background-color: gray;
+height: 100px;
+width: 100px;
+margin-left: 100px;
+margin-top: 30px;
+}

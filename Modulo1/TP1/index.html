@@ -9,27 +9,28 @@
 </head>
 
 <body>
-    <div class="red-class">
-        <form action="">
-            <label>(R) Vermelho:</label>
-            <input type="range" min="0" max="255" name="" id="red">
-            <input type="text" name="" id="" disabled>
-        </form>
+    <h3>Trabalho Prático Módulo 1</h3>
+    <form action="">
+        <div class="red-class">
+            <label id="label-red">(R) Vermelho:</label>
+            <input type="range" min="0" max="255" id="range-red" class="slider">
+            <input type="text" id="text-red" class="input-text" disabled>
+        </div>
+
+        <div class="green-class">
+            <label id="label-green">(G) Verde:</label>
+            <input type="range" min="0" max="255" id="range-green" class="slider">
+            <input type="text" id="text-green" class="input-text" disabled>
+        </div>
+
+        <div class="blue-class">
+            <label id="label-blue">(B) Azul:</label>
+            <input type="range" min="0" max="255" id="range-blue" class="slider">
+            <input type="text" id="text-blue" class="input-text" disabled>
+    </form>
     </div>
-    <div class="green-class">
-        <form action="">
-            <label>(G) Verde:</label>
-            <input type="range" min="0" max="255" name="" id="green">
-            <input type="text" name="" id="" disabled>
-        </form>
-    </div>
-    <div class="blue-class">
-        <form action="">
-            <label>(B) Azul:</label>
-            <input type="range" min="0" max="255" name="" id="blue">
-            <input type="text" name="" id="" disabled>
-        </form>
-    </div>
+
+    <div class="squareColor"></div>
     <script src="./js/index.js"></script>
 </body>
 
