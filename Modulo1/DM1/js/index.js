@@ -1,16 +1,14 @@
 let students = [];
+let studentsFilter = [];
 let searchField = null;
 const input = document.querySelector('#input-students');
-const button = document.querySelector('#btn-students');
 const form = document.querySelector('#form-search');
 const studentsQuery = document.querySelector('#students');
 const staticsQuery = document.querySelector('#statics');
 
-window.addEventListener('load', async () => {
+window.addEventListener('load', () => {
     getEvents();
-    button.disabled = true;
-    students = await callApi();
-    console.log(students);
+    getStudents();
 })
 
 function getEvents() {
@@ -18,51 +16,59 @@ function getEvents() {
         event.preventDefault();
     });
     input.addEventListener('keyup', getInput);
-    button.addEventListener('click', getClickButton);
 }
 
-async function callApi() {
+async function getStudents() {
     const data = await fetch('https://randomuser.me/api/?seed=javascript&results=100&nat=BR&noinfo');
     const response = await data.json();
-    return students = response.results.map(x => {
+    students = response.results.map(user => {
+        const { name, picture, dob, gender, email, location } = user;
+
         return {
-            name: x.name.first + " " + x.name.last,
-            picture: x.picture.thumbnail,
-            gender: x.gender,
-            age: x.dob.age
-        }
+            name: name.first + ' ' + name.last,
+            picture: picture.large,
+            age: dob.age,
+            gender,
+            email,
+            country: location.country,
+            city: location.city
+        };
     });
 }
 
 function getInput(event) {
-    button.disabled = false;
     searchField = event.target.value;
-    if (searchField === null || searchField === '') {
-        button.disabled = true;
+
+    if (searchField === null || searchField === '')
         return;
-    }
+
+    studentsFilter = filterStudents();
+    studentsQuery.innerHTML = renderStudents(studentsFilter);
+    staticsQuery.innerHTML = renderStatics(studentsFilter);
 }
 
-function getClickButton() {
-    const studentsSearch = students.filter(res => {
-        return res.name.match(searchField);
+
+function filterStudents() {
+    return students.filter(res => {
+        const lowerName = res.name.toLowerCase();
+        const lowerInput = searchField.toLowerCase();
+        return lowerName.includes(lowerInput);
     });
-    console.log(studentsSearch);
-    studentsQuery.innerHTML = renderStudents(studentsSearch);
-    staticsQuery.innerHTML = renderStatics(studentsSearch);
 }
 
 function renderStudents(users) {
     let studentHtml = `<h5>${users.length} usuário(s) encontrado(s)</h5>`;
 
-    for (var i in users) {
+    users.forEach(user => {
+        const { name, picture, age, gender, email, country, city } = user;
         studentHtml += `
         <div id="results-students">
-          <img src="${users[i].picture}" alt="picture" />
-          <span>${users[i].name}, ${users[i].age} anos</span>
+          <img src="${picture}" alt="picture" />
+          <span>${name}, ${age} anos</span>
         </div>
         `;
-    }
+    });
+
     return studentHtml;
 }
 
@@ -73,7 +79,7 @@ function renderStatics(users) {
     const totalFem = users.filter(user => user.gender === "female").length;
     const totalAges = users.reduce((acc, curr) => { return acc += curr.age; }, 0);
     let medianAge = (totalAges / users.length);
-    console.log(totalAges);
+
     if (isNaN(medianAge)) {
         medianAge = 0;
     }
