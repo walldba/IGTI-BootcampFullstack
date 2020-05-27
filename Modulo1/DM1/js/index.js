@@ -35,37 +35,38 @@ async function getStudents() {
             city: location.city
         };
     });
+    renderAll();
+}
+
+function renderAll() {
+    studentsQuery.innerHTML = renderStudents(students);
+    staticsQuery.innerHTML = renderStatics(students);
 }
 
 function getInput(event) {
     searchField = event.target.value;
 
-    if (searchField === null || searchField === '')
-        return;
-
-    studentsFilter = filterStudents();
-    studentsQuery.innerHTML = renderStudents(studentsFilter);
-    staticsQuery.innerHTML = renderStatics(studentsFilter);
-}
-
-
-function filterStudents() {
-    return students.filter(res => {
+    studentsFilter = students.filter(res => {
         const lowerName = res.name.toLowerCase();
         const lowerInput = searchField.toLowerCase();
         return lowerName.includes(lowerInput);
     });
+
+    studentsQuery.innerHTML = renderStudents(studentsFilter);
+    staticsQuery.innerHTML = renderStatics(studentsFilter);
 }
 
-function renderStudents(users) {
-    let studentHtml = `<h5>${users.length} usuário(s) encontrado(s)</h5>`;
+function renderStudents(students) {
+    let studentHtml = `<h5>Users found (${students.length})</h5>`;
 
-    users.forEach(user => {
-        const { name, picture, age, gender, email, country, city } = user;
+    students.forEach(student => {
+        const { name, picture, age, gender, email, country, city } = student;
         studentHtml += `
         <div id="results-students">
           <img src="${picture}" alt="picture" />
           <span>${name}, ${age} anos</span>
+          <span>${email}</span>
+          <span>${country}, ${city}</span>
         </div>
         `;
     });
@@ -73,13 +74,13 @@ function renderStudents(users) {
     return studentHtml;
 }
 
-function renderStatics(users) {
-    let staticsHtml = `<h5>Estatísticas</h5>`;
+function renderStatics(students) {
+    let staticsHtml = `<h5>Statistics</h5>`;
 
-    const totalMale = users.filter(user => user.gender === "male").length;
-    const totalFem = users.filter(user => user.gender === "female").length;
-    const totalAges = users.reduce((acc, curr) => { return acc += curr.age; }, 0);
-    let medianAge = (totalAges / users.length);
+    const totalMale = students.filter(student => student.gender === "male").length;
+    const totalFem = students.filter(student => student.gender === "female").length;
+    const totalAges = students.reduce((acc, curr) => { return acc += curr.age; }, 0);
+    let medianAge = (totalAges / students.length);
 
     if (isNaN(medianAge)) {
         medianAge = 0;
@@ -87,10 +88,10 @@ function renderStatics(users) {
 
     const statHTML = `
     <div id="results-statics">
-      <span>Sexo masculino: <strong>${totalMale}</strong></span>
-      <span>Sexo feminino: <strong>${totalFem}</strong></span>
-      <span>Soma das idades: <strong>${totalAges}</strong></span>
-      <span>Média das idades: <strong>${medianAge.toFixed(2).replace('.', ',')}</strong></span>
+      <span>Total Male: <strong>${totalMale}</strong></span>
+      <span>Total Female: <strong>${totalFem}</strong></span>
+      <span>Sum of ages: <strong>${totalAges}</strong></span>
+      <span>Avarage ages: <strong>${medianAge.toFixed(2).replace('.', ',')}</strong></span>
       </div>
     `;
     staticsHtml += statHTML;

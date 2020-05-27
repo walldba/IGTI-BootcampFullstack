@@ -1,13 +1,38 @@
-#form-search input{
+/* #form-search input{
     width: 80%;
+} */
+body {
+    background-color: rgb(69, 76, 92) !important;
 }
 
-#form-search button{
-    width: 10%;
-    height: 40px;
-}
-
-#results-statics{
+#results-statics {
     display: flex;
     flex-direction: column;
+    background-color: white;
+    height: 100px;
+    text-align: center;
+    /* border-radius: 58px; */
 }
+
+#results-students {
+    height: 128px;
+    margin-bottom: 10px;
+    background-color: black;
+    border-radius: 20px;
+    color: white;
+    /* border: 10px solid; */
+    border-block-end-color: rgb(47, 68, 115);
+}
+
+#results-students span {
+  /* position: relative;
+  margin-top: 0px; */
+
+    /* /* position:absolute; */
+    /* margin-left: 30px; */
+}
+
+#results-students img {
+border-radius: 10px;
+}
+
