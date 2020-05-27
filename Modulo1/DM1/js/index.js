@@ -16,6 +16,7 @@ function getEvents() {
         event.preventDefault();
     });
     input.addEventListener('keyup', getInput);
+    input.focus();
 }
 
 async function getStudents() {
