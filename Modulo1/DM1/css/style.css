@@ -1,0 +1,13 @@
+#form-search input{
+    width: 80%;
+}
+
+#form-search button{
+    width: 10%;
+    height: 40px;
+}
+
+#results-statics{
+    display: flex;
+    flex-direction: column;
+}
