@@ -1,11 +1,10 @@
 import express from 'express';
-import fs from 'fs';
+import fs, { readFile } from 'fs';
 
 const { readFileSync, writeFileSync } = fs;
 const app = express();
 app.use(express.json());
 const port = 3000;
-
 
 function getStates() {
   const states = readFileSync("./src/archives/States.json", "utf-8", (err, data) => {
@@ -43,29 +42,22 @@ function createArchives() {
     });
     writeFileSync(`./src/citiesOfStates/${state.Sigla}.json`, JSON.stringify(city))
   });
-
-  console.log(teste);
-
 }
 
-app.get('/teste', (req, res) => {
-
-  res.send('a');
+app.get('/States/:uf', (req, res) => {
+  let uf = req.params.uf.toUpperCase();
+  try {
+    const file = readFileSync(`./src/citiesOfStates/${uf}.json`, 'utf-8');
+    const cities = JSON.parse(file);
+    res.send({
+      city: uf, numberOfCities: cities.length
+    });
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
 });
 
 app.listen(port, () => {
   console.log(`API started on port ${port}`);
-  var teste = getStates();
-  var teste2 = getCities();
   createArchives()
 });
-
-
-// writeFile(`./src/teste/${state.Sigla}.json`, JSON.stringify(state), (err, data) => {
-//   if (!err) {
-//     console.log(data)
-//   }
-//   else {
-//     console.log(err.message)
-//   }
-// });
