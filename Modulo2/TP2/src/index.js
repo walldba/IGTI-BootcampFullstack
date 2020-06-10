@@ -3,8 +3,9 @@ import fs from "fs";
 
 const { readFileSync, writeFileSync } = fs;
 const app = express();
-app.use(express.json());
 const port = 3000;
+
+app.use(express.json());
 
 function getStates() {
   try {
@@ -39,21 +40,113 @@ function createArchives() {
   });
 }
 
-app.get("/States/:uf", (req, res) => {
-  let uf = req.params.uf.toUpperCase();
+function getStateByUf(uf) {
   try {
     const file = readFileSync(`./src/citiesOfStates/${uf}.json`, "utf-8");
     const cities = JSON.parse(file);
-    res.send({
+
+    return {
       city: uf,
       numberOfCities: cities.length,
-    });
+    };
   } catch (error) {
-    res.status(400).send(error.message);
+    console.log(error);
   }
-});
+}
+
+function sortUfAsc() {
+  const result = [];
+  const arrayStates = [];
+  const states = getStates();
+  states.forEach((state) => {
+    arrayStates.push(getStateByUf(state.Sigla));
+  });
+
+  const order = arrayStates
+    .sort((a, b) => b.numberOfCities - a.numberOfCities)
+    .slice(0, 5);
+
+  order.forEach((x) => {
+    result.push(`${x.city} - ${x.numberOfCities}`);
+  });
+
+  console.log(result);
+}
+
+function sortUfDesc() {
+  const result = [];
+  const arrayStates = [];
+  const states = getStates();
+  states.forEach((state) => {
+    arrayStates.push(getStateByUf(state.Sigla));
+  });
+
+  const order = arrayStates
+    .sort((a, b) => a.numberOfCities - b.numberOfCities)
+    .slice(0, 5);
+
+  order.forEach((x) => {
+    result.push(`${x.city} - ${x.numberOfCities}`);
+  });
+
+  console.log(result);
+}
+
+function biggestUfName() {
+  const arrayStates = [];
+  const states = getStates();
+  states.find((state) => {
+    let currentName = "";
+    let arrayName = [];
+    let cities = JSON.parse(
+      readFileSync(`./src/citiesOfStates/${state.Sigla}.json`, "utf-8")
+    );
+    cities.filter((city) => {
+      if (city.Nome.length == currentName.length) {
+        arrayName = [currentName, city.Nome];
+        currentName = arrayName.sort()[0];
+      }
+      if (city.Nome.length > currentName.length) {
+        currentName = city.Nome;
+      }
+    });
+    arrayStates.push(`${currentName} - ${state.Sigla} `);
+  });
+
+  console.log(arrayStates);
+}
+
+function smallestUfName() {
+  const arrayStates = [];
+  const states = getStates();
+  states.find((state) => {
+    let currentName = "";
+    let currentNameLenght = 30;
+    let arrayName = [];
+    let cities = JSON.parse(
+      readFileSync(`./src/citiesOfStates/${state.Sigla}.json`, "utf-8")
+    );
+    cities.filter((city) => {
+      if (city.Nome.length == currentName.length) {
+        arrayName = [currentName, city.Nome];
+        currentName = arrayName.sort()[0];
+      }
+      if (city.Nome.length < currentNameLenght) {
+        currentNameLenght = city.Nome.length;
+        currentName = city.Nome;
+      }
+    });
+    arrayStates.push(`${currentName} - ${state.Sigla} `);
+  });
+
+  console.log(arrayStates);
+}
 
 app.listen(port, () => {
   console.log(`API started on port ${port}`);
   createArchives();
+  sortUfAsc();
+  sortUfDesc();
+  biggestUfName();
+  smallestUfName();
 });
