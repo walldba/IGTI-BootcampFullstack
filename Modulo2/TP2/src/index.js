@@ -26,127 +26,147 @@ async function getCities() {
 }
 
 async function createArchives() {
-  const states = await getStates();
-  const cities = await getCities();
+  try {
+    const states = await getStates();
+    const cities = await getCities();
 
-  states.find((state) => {
-    let city = cities.filter((city) => {
-      return city.Estado == state.ID;
+    states.find((state) => {
+      let city = cities.filter((city) => {
+        return city.Estado == state.ID;
+      });
+
+      writeFile(
+        `./src/citiesOfStates/${state.Sigla}.json`,
+        JSON.stringify(city)
+      );
     });
-
-    writeFile(`./src/citiesOfStates/${state.Sigla}.json`, JSON.stringify(city));
-  });
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
-// function getStateByUf(uf) {
-//   try {
-//     const file = readFile(`./src/citiesOfStates/${uf}.json`, "utf-8");
-//     const cities = JSON.parse(file);
+async function getStateByUf(uf) {
+  try {
+    const file = await readFile(`./src/citiesOfStates/${uf}.json`, "utf-8");
+    const cities = JSON.parse(file);
 
-//     return {
-//       city: uf,
-//       numberOfCities: cities.length,
-//     };
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+    return {
+      city: uf,
+      numberOfCities: cities.length,
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-// function sortUfAsc() {
-//   const result = [];
-//   const arrayStates = [];
-//   const states = getStates();
-//   states.forEach((state) => {
-//     arrayStates.push(getStateByUf(state.Sigla));
-//   });
+async function sortUfAsc() {
+  try {
+    const result = [];
+    const arrayStates = [];
+    const states = await getStates();
+    for (let state of states) {
+      arrayStates.push(await getStateByUf(state.Sigla));
+    }
 
-//   const order = arrayStates
-//     .sort((a, b) => b.numberOfCities - a.numberOfCities)
-//     .slice(0, 5);
+    const order = arrayStates
+      .sort((a, b) => b.numberOfCities - a.numberOfCities)
+      .slice(0, 5);
 
-//   order.forEach((x) => {
-//     result.push(`${x.city} - ${x.numberOfCities}`);
-//   });
+    order.forEach((x) => {
+      result.push(`${x.city} - ${x.numberOfCities}`);
+    });
 
-//   console.log(result);
-// }
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-// function sortUfDesc() {
-//   const result = [];
-//   const arrayStates = [];
-//   const states = getStates();
-//   states.forEach((state) => {
-//     arrayStates.push(getStateByUf(state.Sigla));
-//   });
+async function sortUfDesc() {
+  const result = [];
+  const arrayStates = [];
+  const states = await getStates();
 
-//   const order = arrayStates
-//     .sort((a, b) => a.numberOfCities - b.numberOfCities)
-//     .slice(0, 5);
+  for (let state of states) {
+    arrayStates.push(await getStateByUf(state.Sigla));
+  }
 
-//   order.forEach((x) => {
-//     result.push(`${x.city} - ${x.numberOfCities}`);
-//   });
+  const order = arrayStates
+    .sort((a, b) => a.numberOfCities - b.numberOfCities)
+    .slice(0, 5);
 
-//   console.log(result);
-// }
+  order.forEach((x) => {
+    result.push(`${x.city} - ${x.numberOfCities}`);
+  });
 
-// function biggestUfName() {
-//   const arrayStates = [];
-//   const states = getStates();
-//   states.find((state) => {
-//     let currentName = "";
-//     let arrayName = [];
-//     let cities = JSON.parse(
-//       readFile(`./src/citiesOfStates/${state.Sigla}.json`, "utf-8")
-//     );
-//     cities.filter((city) => {
-//       if (city.Nome.length == currentName.length) {
-//         arrayName = [currentName, city.Nome];
-//         currentName = arrayName.sort()[0];
-//       }
-//       if (city.Nome.length > currentName.length) {
-//         currentName = city.Nome;
-//       }
-//     });
-//     arrayStates.push(`${currentName} - ${state.Sigla} `);
-//   });
+  console.log(result);
+}
 
-//   console.log(arrayStates);
-// }
+async function biggestUfName() {
+  try {
+    const arrayStates = [];
+    const states = await getStates();
 
-// function smallestUfName() {
-//   const arrayStates = [];
-//   const states = getStates();
-//   states.find((state) => {
-//     let currentName = "";
-//     let currentNameLenght = 30;
-//     let arrayName = [];
-//     let cities = JSON.parse(
-//       readFile(`./src/citiesOfStates/${state.Sigla}.json`, "utf-8")
-//     );
-//     cities.filter((city) => {
-//       if (city.Nome.length == currentName.length) {
-//         arrayName = [currentName, city.Nome];
-//         currentName = arrayName.sort()[0];
-//       }
-//       if (city.Nome.length < currentNameLenght) {
-//         currentNameLenght = city.Nome.length;
-//         currentName = city.Nome;
-//       }
-//     });
-//     arrayStates.push(`${currentName} - ${state.Sigla} `);
-//   });
+    for (let state of states) {
+      let currentName = "";
+      let arrayName = [];
+      let cities = JSON.parse(
+        await readFile(`./src/citiesOfStates/${state.Sigla}.json`, "utf-8")
+      );
 
-//   console.log(arrayStates);
-// }
+      cities.filter((city) => {
+        if (city.Nome.length == currentName.length) {
+          arrayName = [currentName, city.Nome];
+          currentName = arrayName.sort()[0];
+        } else {
+          if (city.Nome.length > currentName.length) {
+            currentName = city.Nome;
+          }
+        }
+      });
+      arrayStates.push(`${currentName} - ${state.Sigla} `);
+    }
+
+    console.log(arrayStates);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function smallestUfName() {
+  const arrayStates = [];
+  const states = await getStates();
+  for (let state of states) {
+    let currentName = "";
+    let currentNameLenght = 30;
+    let arrayName = [];
+    let cities = JSON.parse(
+      await readFile(`./src/citiesOfStates/${state.Sigla}.json`, "utf-8")
+    );
+    cities.filter((city) => {
+      if (city.Nome.length == currentName.length) {
+        arrayName = [currentName, city.Nome];
+        currentName = arrayName.sort()[0];
+      }
+      if (city.Nome.length < currentNameLenght) {
+        currentNameLenght = city.Nome.length;
+        currentName = city.Nome;
+      }
+    });
+    arrayStates.push(`${currentName} - ${state.Sigla} `);
+  }
+
+  console.log(arrayStates);
+}
 
 app.listen(port, async () => {
   console.log(`API started on port ${port}`);
-  let states = await getStates();
-  let city = await getCities();
-  createArchives();
+  // let states = await getStates();
+  // let city = await getCities();
+  // createArchives();
+  // getStateByUf("MG");
   // sortUfAsc();
   // sortUfDesc();
-  // biggestUfName();
-  // smallestUfName();
+  await biggestUfName();
+  await smallestUfName();
 });
