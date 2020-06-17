@@ -7,7 +7,7 @@ export default class App extends Component {
     super();
 
     this.state = {
-      fullSalary: "",
+      fullSalary: 1000,
     };
   }
 
@@ -29,39 +29,41 @@ export default class App extends Component {
 
     return (
       <div className="row">
-        <h1>React Salary</h1>
-        <div className="input-field col s12">
-          <p>Salário bruto:</p>
-          <input
-            type="number"
-            value={fullSalary}
-            onChange={this.handleInputChange}
-            className="validate"
-          />
-        </div>
+        <form className="col s12">
+          <h1>React Salary</h1>
+          <div className="input-field col s12">
+            <p>Salário Bruto</p>
+            <input
+              type="number"
+              value={fullSalary}
+              onChange={this.handleInputChange}
+              min="1000"
+            />
+          </div>
 
-        <div className="input-field col s3">
-          <p>Base INSS</p>
-          <input value={formatNumber(baseINSS)} readOnly />
-        </div>
+          <div className="input-field col s3">
+            <p>Base INSS</p>
+            <input value={formatNumber(baseINSS)} readOnly />
+          </div>
 
-        <div className="input-field col s3">
-          <p>Desconto INSS</p>
-          <input value={formatNumber(discountINSS)} readOnly />
-        </div>
+          <div className="input-field col s3">
+            <p>Desconto INSS</p>
+            <input value={formatNumber(discountINSS)} readOnly />
+          </div>
 
-        <div className="input-field col s3">
-          <p>Base IRPF</p>
-          <input value={formatNumber(baseIRPF)} readOnly />
-        </div>
-        <div className="input-field col s3">
-          <p>Desconto IRPF</p>
-          <input value={formatNumber(discountIRPF)} readOnly />
-        </div>
-        <div className="input-field col s3">
-          <p>Salário líquido</p>
-          <input value={formatNumber(netSalary)} readOnly />
-        </div>
+          <div className="input-field col s3">
+            <p>Base IRPF</p>
+            <input value={formatNumber(baseIRPF)} readOnly />
+          </div>
+          <div className="input-field col s3">
+            <p>Desconto IRPF</p>
+            <input value={formatNumber(discountIRPF)} readOnly />
+          </div>
+          <div className="input-field col s3">
+            <p>Salário líquido</p>
+            <input value={formatNumber(netSalary)} readOnly />
+          </div>
+        </form>
       </div>
     );
   }
