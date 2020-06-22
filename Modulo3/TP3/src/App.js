@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { calculateSalaryFrom } from "./helper/salary";
 import { formatNumber, formatPercent } from "./helper/formatHelpers";
+import InputSalary from "./components/InputSalary.js";
+import InputSalaryReadOnly from "./components/InputSalaryReadOnly";
 
 export default class App extends Component {
   constructor() {
@@ -34,54 +36,27 @@ export default class App extends Component {
     return (
       <div className="row">
         <form className="col s12">
-          <h1>React Salary</h1>
-          <div className="input-field col s12">
-            <p>Salário Bruto</p>
-            <input
-              type="number"
-              value={fullSalary}
-              onChange={this.handleInputChange}
-              min="1000"
-            />
-          </div>
-
-          <div className="input-field col s3">
-            <p>Base INSS</p>
-            <input value={formatNumber(baseINSS)} readOnly />
-          </div>
-
-          <div className="input-field col s3">
-            <p>Desconto INSS</p>
-            <input
-              value={`${formatNumber(discountINSS)} (${formatPercent(
-                percentBase
-              )}%)`}
-              readOnly
-            />
-          </div>
-
-          <div className="input-field col s3">
-            <p>Base IRPF</p>
-            <input value={formatNumber(baseIRPF)} readOnly />
-          </div>
-          <div className="input-field col s3">
-            <p>Desconto IRPF</p>
-            <input
-              value={`${formatNumber(discountIRPF)} (${formatPercent(
-                percentIRRF
-              )}%)`}
-              readOnly
-            />
-          </div>
-          <div className="input-field col s3">
-            <p>Salário líquido</p>
-            <input
-              value={`${formatNumber(netSalary)} (${formatPercent(
-                percentNetSalary
-              )}%)`}
-              readOnly
-            />
-          </div>
+          <InputSalary
+            fullSalary={fullSalary}
+            handleInputChange={this.handleInputChange}
+          />
+          <InputSalaryReadOnly tittle={"Base INSS"} value={baseINSS} />
+          <InputSalaryReadOnly
+            tittle={"Desconto INSS"}
+            value={discountINSS}
+            percent={percentBase}
+          />
+          <InputSalaryReadOnly tittle={"Base IRPF"} value={baseIRPF} />
+          <InputSalaryReadOnly
+            tittle={"Desconto IRPF"}
+            value={discountIRPF}
+            percent={percentIRRF}
+          />
+          <InputSalaryReadOnly
+            tittle={"Salário líquido"}
+            value={netSalary}
+            percent={percentNetSalary}
+          />
         </form>
       </div>
     );
