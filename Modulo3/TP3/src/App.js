@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { calculateSalaryFrom } from "./helper/salary";
-import formatNumber from "./helper/formatHelpers";
+import { formatNumber, formatPercent } from "./helper/formatHelpers";
 
 export default class App extends Component {
   constructor() {
@@ -27,6 +27,10 @@ export default class App extends Component {
       netSalary,
     } = calculateSalaryFrom(fullSalary);
 
+    const percentBase = (discountINSS / fullSalary) * 100;
+    const percentIRRF = (discountIRPF / fullSalary) * 100;
+    const percentNetSalary = (netSalary / fullSalary) * 100;
+
     return (
       <div className="row">
         <form className="col s12">
@@ -48,7 +52,12 @@ export default class App extends Component {
 
           <div className="input-field col s3">
             <p>Desconto INSS</p>
-            <input value={formatNumber(discountINSS)} readOnly />
+            <input
+              value={`${formatNumber(discountINSS)} (${formatPercent(
+                percentBase
+              )}%)`}
+              readOnly
+            />
           </div>
 
           <div className="input-field col s3">
@@ -57,11 +66,21 @@ export default class App extends Component {
           </div>
           <div className="input-field col s3">
             <p>Desconto IRPF</p>
-            <input value={formatNumber(discountIRPF)} readOnly />
+            <input
+              value={`${formatNumber(discountIRPF)} (${formatPercent(
+                percentIRRF
+              )}%)`}
+              readOnly
+            />
           </div>
           <div className="input-field col s3">
             <p>Salário líquido</p>
-            <input value={formatNumber(netSalary)} readOnly />
+            <input
+              value={`${formatNumber(netSalary)} (${formatPercent(
+                percentNetSalary
+              )}%)`}
+              readOnly
+            />
           </div>
         </form>
       </div>
