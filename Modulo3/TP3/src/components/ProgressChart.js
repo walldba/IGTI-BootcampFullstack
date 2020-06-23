@@ -5,7 +5,6 @@ export default class ProgressChart extends Component {
   render() {
     const { valueINSS, valueIRRF, valueSalary } = this.props;
     const options = {
-      title: "Gráfico Salário",
       titleTextStyle: { color: "black" },
       backgroundColor: "#eeeeee",
       pieSliceTextStyle: {

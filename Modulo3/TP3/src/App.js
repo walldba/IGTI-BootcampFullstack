@@ -10,7 +10,7 @@ export default class App extends Component {
     super();
 
     this.state = {
-      fullSalary: 1000,
+      fullSalary: 0,
     };
   }
 
