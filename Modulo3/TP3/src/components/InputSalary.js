@@ -12,6 +12,10 @@ export default class InputSalary extends Component {
     this.textInput.current.focus();
   }
 
+  componentDidUpdate() {
+    document.title = `Salário ${this.props.value}`;
+  }
+
   render() {
     const { value, handleInputChange } = this.props;
 
