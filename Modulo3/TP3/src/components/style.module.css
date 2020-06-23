@@ -1,0 +1,18 @@
+.tittle {
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  color: #222831;
+}
+
+.container {
+  background-color: #eeeeee;
+  border: 2px solid white;
+  margin-top: 50px;
+}
+
+.container strong {
+  font-size: medium;
+}
+.inputSalary {
+  background-color: yellow;
+}

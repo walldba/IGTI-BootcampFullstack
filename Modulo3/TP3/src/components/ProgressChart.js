@@ -7,12 +7,12 @@ export default class ProgressChart extends Component {
     const options = {
       title: "Gráfico Salário",
       titleTextStyle: { color: "black" },
-      backgroundColor: "white",
+      backgroundColor: "#eeeeee",
       pieSliceTextStyle: {
         color: "black",
       },
       legend: { textStyle: { color: "black" } },
-      colors: ["#00ff00", "#ff8c00", "#ffb6c1"],
+      colors: ["#438a5e", "#ffcb74", "#c70039"],
       is3D: true,
     };
 
@@ -24,7 +24,7 @@ export default class ProgressChart extends Component {
     ];
 
     return (
-      <div className="col s6">
+      <div className="col s12">
         <Chart
           width={"100%"}
           height={"auto"}

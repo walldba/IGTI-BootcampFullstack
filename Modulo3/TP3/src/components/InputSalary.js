@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import css from "./style.module.css";
 
 export default class InputSalary extends Component {
   render() {
@@ -6,10 +7,10 @@ export default class InputSalary extends Component {
 
     return (
       <div>
-        <h1>React Salary</h1>
         <div className="input-field col s12">
-          <p>Salário Bruto</p>
+          <strong>Salário Bruto:</strong>
           <input
+            className={css.inputSalary}
             type="number"
             value={value}
             onChange={handleInputChange}
