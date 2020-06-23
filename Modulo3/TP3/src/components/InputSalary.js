@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class InputSalary extends Component {
   render() {
-    const { fullSalary, handleInputChange } = this.props;
+    const { value, handleInputChange } = this.props;
 
     return (
       <div>
@@ -11,7 +11,7 @@ export default class InputSalary extends Component {
           <p>Salário Bruto</p>
           <input
             type="number"
-            value={fullSalary}
+            value={value}
             onChange={handleInputChange}
             min="1000"
           />

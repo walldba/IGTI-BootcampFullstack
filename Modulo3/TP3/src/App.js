@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { calculateSalaryFrom } from "./helper/salary";
-import { formatNumber, formatPercent } from "./helper/formatHelpers";
 import InputSalary from "./components/InputSalary.js";
 import InputSalaryReadOnly from "./components/InputSalaryReadOnly";
+import ProgressChart from "./components/ProgressChart";
 
 export default class App extends Component {
   constructor() {
@@ -37,7 +37,7 @@ export default class App extends Component {
       <div className="row">
         <form className="col s12">
           <InputSalary
-            fullSalary={fullSalary}
+            value={fullSalary}
             handleInputChange={this.handleInputChange}
           />
           <InputSalaryReadOnly tittle={"Base INSS"} value={baseINSS} />
@@ -56,6 +56,12 @@ export default class App extends Component {
             tittle={"Salário líquido"}
             value={netSalary}
             percent={percentNetSalary}
+          />
+
+          <ProgressChart
+            valueINSS={netSalary}
+            valueIRRF={discountIRPF}
+            valueSalary={discountINSS}
           />
         </form>
       </div>

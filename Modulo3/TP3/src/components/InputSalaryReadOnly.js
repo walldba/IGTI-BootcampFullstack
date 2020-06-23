@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { formatNumber, formatPercent } from "../helper/formatHelpers";
+
 export default class InputSalaryReadOnly extends Component {
   render() {
     const { tittle, value, percent } = this.props;
