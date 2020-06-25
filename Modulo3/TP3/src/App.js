@@ -22,8 +22,12 @@ export default class App extends Component {
   };
 
   render() {
+    console.log(
+      `%c🔥 Meet my Github: https://github.com/walldba 🔥`,
+      "font-size:15px"
+    );
+
     const { fullSalary } = this.state;
-    console.log(fullSalary);
     const {
       baseINSS,
       discountINSS,

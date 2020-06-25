@@ -7,7 +7,10 @@ export default class Preloader extends Component {
         <div className="progress">
           <div className="indeterminate"></div>
         </div>
-        <strong>Por favor, digite seu salário bruto. 😎</strong>
+        <strong>Por favor, digite seu salário bruto.</strong>
+        <span role="img" aria-label="smile">
+          😎
+        </span>
       </>
     );
   }
