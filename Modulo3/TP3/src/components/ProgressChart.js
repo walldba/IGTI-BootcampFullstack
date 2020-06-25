@@ -26,10 +26,7 @@ export default class ProgressChart extends Component {
 
     if (value === 0 || value === "") {
       return (
-        <div
-          className={`col s12 ${css.preloader}`}
-          style={{ textAlign: "center" }}
-        >
+        <div className={`col s12 ${css.preloader}`}>
           <Preloader />
         </div>
       );
@@ -38,7 +35,7 @@ export default class ProgressChart extends Component {
         <div className="col s12">
           <Chart
             width={"100%"}
-            height={"300px"}
+            height={"auto"}
             chartType="PieChart"
             data={data}
             options={options}

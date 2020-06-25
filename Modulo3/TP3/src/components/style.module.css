@@ -6,17 +6,18 @@
 }
 
 .container {
+  margin-top: 10px;
+  margin-bottom: 50px;
   background-color: #eeeeee;
   border: 2px solid white;
   border-radius: 30px;
-  margin-top: 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  min-height: 800px;
+  min-height: 700px;
 }
 
 .preloader {
   text-align: center;
-  margin-top: 200px;
+  margin-top: 50px;
 }
 
 .container strong {
@@ -24,4 +25,9 @@
 }
 .inputSalary {
   background-color: yellow;
+}
+
+.footer {
+  background-color: #739fd4;
+  font-style: oblique;
 }
