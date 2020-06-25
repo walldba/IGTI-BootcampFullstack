@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Chart } from "react-google-charts";
+import Preloader from "./Preloader";
+import css from "./style.module.css";
 
 export default class ProgressChart extends Component {
   render() {
-    const { valueINSS, valueIRRF, valueSalary } = this.props;
+    const { value, valueINSS, valueIRRF, valueSalary } = this.props;
     const options = {
       titleTextStyle: { color: "black" },
       backgroundColor: "#eeeeee",
@@ -22,16 +24,27 @@ export default class ProgressChart extends Component {
       ["Desconto IRRF", valueSalary],
     ];
 
-    return (
-      <div className="col s12">
-        <Chart
-          width={"100%"}
-          height={"auto"}
-          chartType="PieChart"
-          data={data}
-          options={options}
-        />
-      </div>
-    );
+    if (value === 0 || value === "") {
+      return (
+        <div
+          className={`col s12 ${css.preloader}`}
+          style={{ textAlign: "center" }}
+        >
+          <Preloader />
+        </div>
+      );
+    } else {
+      return (
+        <div className="col s12">
+          <Chart
+            width={"100%"}
+            height={"300px"}
+            chartType="PieChart"
+            data={data}
+            options={options}
+          />
+        </div>
+      );
+    }
   }
 }

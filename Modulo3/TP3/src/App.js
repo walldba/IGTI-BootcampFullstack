@@ -22,6 +22,7 @@ export default class App extends Component {
 
   render() {
     const { fullSalary } = this.state;
+    console.log(fullSalary);
     const {
       baseINSS,
       discountINSS,
@@ -38,7 +39,7 @@ export default class App extends Component {
       <div className={`container ${css.container}`}>
         <div className="row">
           <form className="col s12">
-            <h1 className={css.tittle}>React Salary</h1>
+            <h1 className={css.tittle}>REACT SALARY</h1>
             <InputSalary
               value={fullSalary}
               handleInputChange={this.handleInputChange}
@@ -60,7 +61,9 @@ export default class App extends Component {
               value={netSalary}
               percent={percentNetSalary}
             />
+
             <ProgressChart
+              value={fullSalary}
               valueINSS={netSalary}
               valueIRRF={discountIRPF}
               valueSalary={discountINSS}

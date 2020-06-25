@@ -29,7 +29,7 @@ export default class InputSalary extends Component {
             type="number"
             value={value}
             onChange={handleInputChange}
-            min="1000"
+            min="1"
           />
         </div>
       </div>
