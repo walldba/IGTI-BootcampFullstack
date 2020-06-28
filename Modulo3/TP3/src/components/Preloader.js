@@ -1,17 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class Preloader extends Component {
-  render() {
-    return (
-      <>
-        <div className="progress">
-          <div className="indeterminate"></div>
-        </div>
-        <strong>Por favor, digite seu salário bruto.</strong>
-        <span role="img" aria-label="smile">
-          😎
-        </span>
-      </>
-    );
-  }
+export default function Preloader() {
+  return (
+    <>
+      <div className="progress">
+        <div className="indeterminate"></div>
+      </div>
+      <strong>Por favor, digite seu salário bruto.</strong>
+      <span role="img" aria-label="smile">
+        😎
+      </span>
+    </>
+  );
 }
