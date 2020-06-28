@@ -1,0 +1,51 @@
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.boxParcela {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 145px;
+  font-size: 0.9rem;
+}
+
+.flexParcela {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flexRowParcelas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.colorPositive {
+  color: green;
+}
+
+.colorPercentPositive {
+  color: blue;
+}
+
+.colorPercentNegative {
+  color: orange;
+}
+
+.colorNegative {
+  color: red;
+}
