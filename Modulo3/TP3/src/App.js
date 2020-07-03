@@ -14,7 +14,7 @@ export default function App() {
   };
 
   console.log(
-    `%c🔥 Meet my Github: https://github.com/walldba 🔥`,
+    `%c🔥 Visit my Github: https://github.com/walldba 🔥`,
     "font-size:15px"
   );
 
