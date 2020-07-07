@@ -10,4 +10,4 @@ dbConnect();
 app.use(express.json());
 app.use("/accounts", accountsRoutes);
 
-app.listen(port, () => console.log(`API Started On Port ${port}`));
+app.listen(port, () => console.log(`API Node Started On Port ${port}`));
